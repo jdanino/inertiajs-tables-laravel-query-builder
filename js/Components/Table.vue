@@ -211,6 +211,7 @@ import TableSearchRows from "./TableSearchRows.vue";
 import TableReset from "./TableReset.vue";
 import TableWrapper from "./TableWrapper.vue";
 import { computed, getCurrentInstance, onMounted, onUnmounted, provide, ref, Transition, watch } from "vue";
+import { router, usePage } from "@inertiajs/vue3";
 import qs from "qs";
 import clone from "lodash-es/clone";
 import filter from "lodash-es/filter";
@@ -301,14 +302,12 @@ const emit = defineEmits(["rowClick"]);
 
 provide("activeClasses", props.activeClasses);
 
-const app = getCurrentInstance();
-const $inertia = app ? app.appContext.config.globalProperties.$inertia : props.inertia;
-
 const updates = ref(0);
+const page = usePage();
 
 const queryBuilderProps = computed(() => {
-    let data = $inertia.page.props.queryBuilderProps
-        ? $inertia.page.props.queryBuilderProps[props.name] || {}
+    let data = page.props.queryBuilderProps
+        ? page.props.queryBuilderProps[props.name] || {}
         : {};
 
     data._updates = updates.value;
@@ -634,7 +633,7 @@ function visit(url) {
         return;
     }
 
-    $inertia.get(
+    router.get(
         url,
         {},
         {
@@ -651,7 +650,7 @@ function visit(url) {
                 isVisiting.value = false;
             },
             onSuccess() {
-                if ("queryBuilderProps" in $inertia.page.props) {
+                if ("queryBuilderProps" in page.props) {
                     queryBuilderData.value.cursor = queryBuilderProps.value.cursor;
                     queryBuilderData.value.page = queryBuilderProps.value.page;
                 }
@@ -678,11 +677,11 @@ const inertiaListener = () => {
 };
 
 onMounted(() => {
-    document.addEventListener("inertia:success", inertiaListener);
+    document.addEventListener("success", inertiaListener);
 });
 
 onUnmounted(() => {
-    document.removeEventListener("inertia:success", inertiaListener);
+    document.removeEventListener("success", inertiaListener);
 });
 
 //

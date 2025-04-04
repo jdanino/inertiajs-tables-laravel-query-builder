@@ -1,5 +1,38 @@
 # Inertia.js Tables for Laravel Query Builder
 
+This package provides a set of components to build Inertia.js tables using [Spatie's Laravel Query Builder](https://github.com/spatie/laravel-query-builder).
+
+## Version Compatibility
+
+| Package Version | Inertia.js Version | Laravel Version |
+|-----------------|-------------------|-----------------|
+| 2.x             | 0.x               | 8.x, 9.x, 10.x  |
+| 3.x             | 1.x, 2.x          | 8.x, 9.x, 10.x  |
+
+## Upgrading from v2.x to v3.x
+
+Version 3.x of this package supports Inertia.js 2.0. If you're upgrading from v2.x, you'll need to:
+
+1. Update your dependencies:
+   ```bash
+   npm remove @inertiajs/inertia @inertiajs/inertia-vue3 @inertiajs/progress
+   npm install @inertiajs/vue3
+   ```
+
+2. Update your imports:
+   - Replace `@inertiajs/inertia-vue3` with `@inertiajs/vue3`
+   - Replace `@inertiajs/inertia` with `@inertiajs/vue3`
+   - Replace `@inertiajs/progress` with the progress module from `@inertiajs/vue3`
+
+3. Update your Inertia setup:
+   - The `setup` function now receives `App` instead of `app`
+   - Use the `router` and `usePage()` instead of `$inertia` and `$inertia.page`
+   - Update event listeners from `inertia:success` to `success`
+
+For more details on upgrading to Inertia.js 2.0, see the [official upgrade guide](https://inertiajs.com/upgrade-guide).
+
+# Inertia.js Tables for Laravel Query Builder
+
 [![Latest Version on NPM](https://img.shields.io/npm/v/@protonemedia/inertiajs-tables-laravel-query-builder.svg?style=flat-square)](https://npmjs.com/package/@protonemedia/inertiajs-tables-laravel-query-builder)
 [![npm](https://img.shields.io/npm/dt/@protonemedia/inertiajs-tables-laravel-query-builder.svg?style=flat-square)](https://www.npmjs.com/package/@protonemedia/inertiajs-tables-laravel-query-builder)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/protonemedia/inertiajs-tables-laravel-query-builder.svg?style=flat-square)](https://packagist.org/packages/protonemedia/inertiajs-tables-laravel-query-builder)
