@@ -3,6 +3,7 @@
     v-if="hasPagination"
     class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
   >
+      {{ hasPagination}}
     <p v-if="!hasData || pagination.total < 1">
       {{ translations.no_results_found }}
     </p>
@@ -229,7 +230,7 @@ const hasLinks = computed(() => {
 });
 
 const hasPagination = computed(() => {
-    return Object.keys(pagination.value).length > 0;
+    return Object.keys(pagination.value).length > 0 && pagination.value.total > 1;
 });
 
 const pagination = computed(() => {

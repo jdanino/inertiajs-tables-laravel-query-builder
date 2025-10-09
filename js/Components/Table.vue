@@ -20,16 +20,14 @@
             :on-filter-change="changeFilterValue"
           >
             <TableFilter
-
+              v-if="hasData"
               :has-enabled-filters="queryBuilderProps.hasEnabledFilters"
               :filters="queryBuilderProps.filters"
               :on-filter-change="changeFilterValue"
             />
           </slot>
         </div>
-
         <div
-          v-if="queryBuilderProps.globalSearch"
           class="flex flex-row order-1 w-full mb-2 sm:w-auto sm:flex-grow sm:order-2 sm:mb-0 "
         >
           <slot
@@ -40,7 +38,7 @@
             :on-change="changeGlobalSearchValue"
           >
             <TableGlobalSearch
-              v-if="queryBuilderProps.globalSearch"
+              v-if="showGlobalSearch && queryBuilderProps.globalSearch && hasData"
               class="flex-grow"
               :label="queryBuilderProps.globalSearch.label"
               :value="queryBuilderProps.globalSearch.value"
@@ -71,7 +69,7 @@
           :on-add="showSearchInput"
         >
           <TableAddSearchRow
-            v-if="queryBuilderProps.hasSearchInputs"
+            v-if="showGlobalSearch && queryBuilderProps.hasSearchInputs && hasData"
             class="order-3 sm:order-4"
             :search-inputs="queryBuilderProps.searchInputsWithoutGlobal"
             :has-search-inputs-without-value="queryBuilderProps.hasSearchInputsWithoutValue"
@@ -173,6 +171,15 @@
                     </td>
                   </tr>
                 </slot>
+
+                <tr v-if="!hasData">
+                  <td
+                    class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap text-center"
+                    :colspan="100"
+                  >
+                    Geen resultaten gevonden.
+                  </td>
+                </tr>
               </tbody>
             </table>
           </slot>
@@ -295,6 +302,12 @@ const props = defineProps({
                 focusBorder: "focus:border-indigo-500"
             };
         }
+    },
+
+    showGlobalSearch: {
+        type: [Boolean, String],
+        default: true,
+        required: false,
     }
 });
 

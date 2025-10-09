@@ -27,7 +27,7 @@
       role="menu"
       aria-orientation="horizontal"
       aria-labelledby="filter-menu"
-      class="min-w-max"
+      class="min-w-[320px]"
     >
       <div
         v-for="(filter, key) in filters"

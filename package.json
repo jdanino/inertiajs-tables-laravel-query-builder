@@ -1,6 +1,6 @@
 {
   "name": "@jdanino/inertiajs-tables-laravel-query-builder",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Inertia.js Front-end Components for Spatie's Laravel Query Builder",
   "private": false,
   "author": "Pascal Baljet <pascal@protone.media>",
