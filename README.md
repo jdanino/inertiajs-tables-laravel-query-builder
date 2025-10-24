@@ -500,6 +500,86 @@ php artisan dusk
 * Date range filters
 * Switch to Vite for the demo app
 
+## Local Development
+
+If you want to work on this package locally and test changes in your application, you can use npm's `file:` protocol to create a symlink.
+
+### Setup
+
+1. **Clone the package repository** to your local machine:
+   ```bash
+   git clone https://github.com/your-username/inertiajs-tables-laravel-query-builder.git /path/to/package
+   ```
+
+2. **Install package dependencies**:
+   ```bash
+   cd /path/to/package
+   npm install
+   ```
+
+3. **Update your application's `package.json`** to point to the local package:
+   ```json
+   {
+     "devDependencies": {
+       "@protonemedia/inertiajs-tables-laravel-query-builder": "file:/absolute/path/to/package"
+     }
+   }
+   ```
+
+4. **Install dependencies in your application**:
+   ```bash
+   cd /path/to/your-application
+   npm install
+   ```
+   This will create a symlink from `node_modules/@protonemedia/inertiajs-tables-laravel-query-builder` to your local package directory.
+
+5. **Start the package build watcher** (in the package directory):
+   ```bash
+   cd /path/to/package
+   npm run dev
+   ```
+   This runs `vite build --watch`, which will automatically rebuild the package whenever you make changes.
+
+6. **Start your application's dev server** (in another terminal):
+   ```bash
+   cd /path/to/your-application
+   npm run dev
+   ```
+
+### Making Changes
+
+Now any changes you make to the package source files will:
+1. Be automatically rebuilt by the package's watch process
+2. Be immediately available to your application via the symlink
+3. Trigger your application's hot module reload (if using Vite/HMR)
+
+### Installing the Composer Package
+
+If you also forked the package and want to use your fork in your Laravel application:
+
+```bash
+composer require protonemedia/inertiajs-tables-laravel-query-builder:dev-main
+```
+
+Make sure to update your `composer.json` to point to your fork:
+
+```json
+{
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/your-username/inertiajs-tables-laravel-query-builder"
+    }
+  ]
+}
+```
+
+### Troubleshooting
+
+- **Changes not appearing?** Make sure the package's `npm run dev` is running and watch for build errors
+- **Old build artifacts?** Try deleting the `dist` folder in the package and rebuilding
+- **Symlink not working?** Run `npm install` again in your application to recreate the symlink
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
